@@ -1,7 +1,6 @@
 %   MA332_CovidModel
 %   10/30/2020
 %   
-%
 %   Cory Snyder
 %% Polynomial Fit 
 % Sets up a simple linear solver to fit the COVID-19 data to a 5th order 
@@ -33,8 +32,10 @@ xx = 1:0.1:length(x);
 % 60 Day Prediction
 xx2 = x(end):0.1:x(end)+60;
 
+% Plot it
 figure(1);
 hold on;
+grid on;
 plot(Day,TotalConfirmedCasesinUS, '-o');
 plot(xx,f(xx),'LineWidth',2);
 plot(xx2,f(xx2),'--','LineWidth',1.5);
@@ -51,6 +52,8 @@ y = TotalConfirmedCasesinUS;
 load('Day.mat');
 x = Day;
 
+% Use Newton Optimization and Least Squares Logistic Function,Gradient,and
+% Hessian to find suitable parameters
 [abest,fbest,itr,status] = NewtonOpt(@logisticLS_f,@logisticLS_Df,@logisticLS_D2f,[9000000;100;0.025],1,1,100,3);
 %[9000000;105;0.025]
 % Assemble the Logistic model based on the coefficients from NewtonOpt
@@ -59,8 +62,10 @@ xx = 1:0.1:length(Day);
 % 60 Day Prediction
 xx2 = Day(end):0.1:Day(end)+60;
 
+% Plot it
 figure(2);
 hold on;
+grid on;
 plot(Day,TotalConfirmedCasesinUS, '-o');
 plot(xx,f(xx),'LineWidth',1.5);
 plot(xx2,f(xx2),'--','LineWidth',1.5);
@@ -79,7 +84,6 @@ x = Day;
 
 % Use Newton Optimization and Least Squares Logistic Function,Gradient,and
 % Hessian to find suitable parameters
-% Initial Guess : [13682795.7504817;8182.36526500048;0.01]
 [abest,fbest,itr,status] = NewtonOpt(@gompertzLS_f,@gompertzLS_Df,@gompertzLS_D2f,[13000000;8000;0.01],1,1,2,3);
 
 % Assemble the Gompertz model based on the coefficients from NewtonOpt
@@ -88,8 +92,10 @@ xx = 1:0.1:length(Day);
 % 60 Day Prediction
 xx2 = Day(end):0.1:Day(end)+60;
 
+% Plot it
 figure(3);
 hold on;
+grid on;
 plot(Day,TotalConfirmedCasesinUS, '-o');
 plot(xx,f(xx),'LineWidth',1.5);
 plot(xx2,f(xx2),'--','LineWidth',1.5);

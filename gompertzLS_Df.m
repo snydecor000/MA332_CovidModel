@@ -23,7 +23,7 @@ x = Day;
 error = @(i) y(i)-a(1)*exp(-log(a(1)/a(2))*exp(-a(3)*x(i)));
 derrorda1 = @(i) (exp(-a(3)*x(i))-1)*(a(1)/a(2))^(-exp(-a(3)*x(i)));
 derrorda2 = @(i) -a(1)*exp(-a(3)*x(i))*(a(1)/a(2))^(-exp(-a(3)*x(i)))/a(2);
-derrorda3 = @(i) -a(1)*log(a(1)/a(2))*x(i)*exp(-a(3)*x(i))*(a(1)/a(2))^(-exp(-a(3)*x(i)));   
+derrorda3 = @(i) -a(1)*log(a(1)/a(2))*x(i)*exp(-a(3)*x(i))*(a(1)/a(2))^(-exp(-a(3)*x(i)));
 
 Dfvalue = zeros(3,1);
 

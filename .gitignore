@@ -1,1 +1,4 @@
 *.asv
+*.png
+*.zip
+/MA332_CovidModel
