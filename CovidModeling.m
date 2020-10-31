@@ -70,3 +70,31 @@ ylabel('Confirmed Cases');
 legend('Original Data','Logistic Curve','2 Month Forecast','Location','southeast');
 hold off;
 
+%% Gompertz Fit
+% Load in variables
+load('TotalConfirmedCasesinUS.mat');
+y = TotalConfirmedCasesinUS;
+load('Day.mat');
+x = Day;
+
+% Use Newton Optimization and Least Squares Logistic Function,Gradient,and
+% Hessian to find suitable parameters
+% Initial Guess : [13682795.7504817;8182.36526500048;0.01]
+[abest,fbest,itr,status] = NewtonOpt(@gompertzLS_f,@gompertzLS_Df,@gompertzLS_D2f,[13000000;8000;0.01],1,1,2,3);
+
+% Assemble the Gompertz model based on the coefficients from NewtonOpt
+f = @(x) abest(1)*exp(-log(abest(1)/abest(2))*exp(-abest(3)*x));
+xx = 1:0.1:length(Day);
+% 60 Day Prediction
+xx2 = Day(end):0.1:Day(end)+60;
+
+figure(3);
+hold on;
+plot(Day,TotalConfirmedCasesinUS, '-o');
+plot(xx,f(xx),'LineWidth',1.5);
+plot(xx2,f(xx2),'--','LineWidth',1.5);
+title('Gompertz Fit: Total Confirmed Cases in the US');
+xlabel('Days');
+ylabel('Confirmed Cases');
+legend('Original Data','Gompertz Curve','2 Month Forecast','Location','southeast');
+hold off;
