@@ -17,7 +17,7 @@ y = TotalConfirmedCasesinUS;
 load('Day.mat');
 x = Day;
 
-% Function Definition pulled directly from GompertsLSDerivatives.mw Maple
+% Function Definition pulled directly from GompertzLSDerivatives.mw Maple
 % Worksheet (Located in this repository)
 error = @(i) y(i)-a(1)*exp(-log(a(1)/a(2))*exp(-a(3)*x(i)));
 

@@ -18,7 +18,7 @@ y = TotalConfirmedCasesinUS;
 load('Day.mat');
 x = Day;
 
-% Function Definitions pulled directly from GompertsLSDerivatives.mw Maple
+% Function Definitions pulled directly from GompertzLSDerivatives.mw Maple
 % Worksheet (Located in this repository)
 error = @(i) y(i)-a(1)*exp(-log(a(1)/a(2))*exp(-a(3)*x(i)));
 derrorda1 = @(i) (exp(-a(3)*x(i))-1)*(a(1)/a(2))^(-exp(-a(3)*x(i)));
@@ -27,7 +27,7 @@ derrorda3 = @(i) -a(1)*log(a(1)/a(2))*x(i)*exp(-a(3)*x(i))*(a(1)/a(2))^(-exp(-a(
 
 Dfvalue = zeros(3,1);
 
-% Assemble the Gradient
+% Assemble the Gradient Matrix
 for i = 1:length(x)
     Dfvalue(1) = Dfvalue(1) + 2*error(i)*derrorda1(i);
     Dfvalue(2) = Dfvalue(2) + 2*error(i)*derrorda2(i);

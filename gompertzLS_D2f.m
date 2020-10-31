@@ -19,7 +19,7 @@ y = TotalConfirmedCasesinUS;
 load('Day.mat');
 x = Day;
 
-% Function Definitions pulled directly from GompertsLSDerivatives.mw Maple
+% Function Definitions pulled directly from GompertzLSDerivatives.mw Maple
 % Worksheet (Located in this repository)
 error = @(i) y(i)-a(1)*exp(-log(a(1)/a(2))*exp(-a(3)*x(i)));
 derrorda1 = @(i) (exp(-a(3)*x(i))-1)*(a(1)/a(2))^(-exp(-a(3)*x(i)));
@@ -33,7 +33,7 @@ d2errorda2da3 = @(i) -a(1)*x(i)*exp(-a(3)*x(i))*(a(1)/a(2))^(-exp(-a(3)*x(i)))*(
 d2errorda3da3 = @(i) -(a(1)/a(2))^(-exp(-a(3)*x(i)))*log(a(1)/a(2))*a(1)*x(i)^2*exp(-a(3)*x(i))*(log(a(1)/a(2))*exp(-a(3)*x(i))-1);     
 D2fvalue = zeros(3,3);
 
-% Assemble the Hessian
+% Assemble the Hessian Matrix
 for i = 1:length(x)
     D2fvalue(1,1) = D2fvalue(1,1) + 2*(derrorda1(i))^2 + 2*error(i)*d2errorda1da1(i);
     D2fvalue(1,2) = D2fvalue(1,2) + 2*derrorda1(i)*derrorda2(i) + 2*error(i)*d2errorda1da2(i);
